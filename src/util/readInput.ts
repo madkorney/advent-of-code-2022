@@ -17,7 +17,7 @@ export const readInput = (pathToFile: string) => {
     const data = rawData.split(`\n`);
     return data;
   } catch (err) {
-    throw new Error('file read operation failed');
+    throw new Error(`cant read file ${pathToFile}`);
   }
 };
 
