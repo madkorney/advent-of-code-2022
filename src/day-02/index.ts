@@ -6,39 +6,44 @@ const testAnswerB = 12;
 
 // ======= Day 02 - puzzle description ======
 
-type Akeys = 'A' | 'B' | 'C';
-type Xkeys = 'X' | 'Y' | 'Z';
-
 const scorePointsGameA = {
-  A: { X: 4, Y: 8, Z: 3 },
-  B: { X: 1, Y: 5, Z: 9 },
-  C: { X: 7, Y: 2, Z: 6 },
+  'A X': 4,
+  'A Y': 8,
+  'A Z': 3,
+  'B X': 1,
+  'B Y': 5,
+  'B Z': 9,
+  'C X': 7,
+  'C Y': 2,
+  'C Z': 6,
 };
 
 const scorePointsGameB = {
-  A: { X: 3, Y: 4, Z: 8 },
-  B: { X: 1, Y: 5, Z: 9 },
-  C: { X: 2, Y: 6, Z: 7 },
+  'A X': 3,
+  'A Y': 4,
+  'A Z': 8,
+  'B X': 1,
+  'B Y': 5,
+  'B Z': 9,
+  'C X': 2,
+  'C Y': 6,
+  'C Z': 7,
 };
 
-// const transformInputData = (inputData: string[]) => {
-//   return inputData;
-// };
-
 const taskA = (inputData: string[]): number => {
-  const totalPoints = inputData
-    .map((line) => line.split(' '))
-    .map((game) => scorePointsGameA[game[0] as Akeys][game[1] as Xkeys])
-    .reduce((sum, gameScore) => sum + gameScore, 0);
+  const totalPoints = inputData.reduce(
+    (sum, key) => sum + scorePointsGameA[key as keyof typeof scorePointsGameA],
+    0
+  );
 
   return totalPoints;
 };
 
 const taskB = (inputData: string[]): number => {
-  const totalPoints = inputData
-    .map((line) => line.split(' '))
-    .map((game) => scorePointsGameB[game[0] as Akeys][game[1] as Xkeys])
-    .reduce((sum, gameScore) => sum + gameScore, 0);
+  const totalPoints = inputData.reduce(
+    (sum, key) => sum + scorePointsGameB[key as keyof typeof scorePointsGameB],
+    0
+  );
 
   return totalPoints;
 };
