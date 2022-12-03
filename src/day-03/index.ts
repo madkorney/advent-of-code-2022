@@ -6,8 +6,11 @@ const testAnswerA = 157;
 const testAnswerB = 70;
 
 const getItemPriority = (char: string): number => {
-  const charCode = char.charCodeAt(0);
-  const priority = charCode < 97 ? charCode - 65 + 27 : charCode - 97 + 1;
+  // const charCode = char.charCodeAt(0);
+  // const priority = charCode < 97 ? charCode - 65 + 27 : charCode - 97 + 1;
+  const priorityPositions = '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const priority = priorityPositions.indexOf(char);
+
   return priority;
 };
 
