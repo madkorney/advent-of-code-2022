@@ -8,18 +8,20 @@ const testAnswerB = 'MCD';
 
 const getStackCommands = (inputData: string[]) => {
   const splitIndex = inputData.findIndex((line) => !line);
-  if (splitIndex !== -1)
-    return inputData.slice(splitIndex + 1).map((line) =>
-      line
-        .split(' ')
-        .map(Number)
-        .filter((item) => !isNaN(item))
-    );
-  return [];
+  if (splitIndex === -1) return [];
+
+  return inputData.slice(splitIndex + 1).map((line) =>
+    line
+      .split(' ')
+      .map(Number)
+      .filter((item) => !isNaN(item))
+  );
 };
 
 const getStacks = (inputData: string[]) => {
   const splitIndex = inputData.findIndex((line) => !line);
+  if (splitIndex === -1) return [];
+
   const rawStackLines = inputData.slice(0, splitIndex - 1).reverse();
   const numberOfStacks = Math.max(...inputData[splitIndex - 1].split(' ').map(Number));
   const stacks: string[][] = [];
@@ -40,8 +42,8 @@ const taskA = (inputData: string[]): string => {
   const stacks = getStacks(inputData);
   const stackCommands = getStackCommands(inputData);
 
-  stackCommands.forEach(([numberOfCommands, stackFrom, stackTo]) => {
-    for (let k = 0; k < numberOfCommands; k += 1) {
+  stackCommands.forEach(([numberOfCratesToMove, stackFrom, stackTo]) => {
+    for (let k = 0; k < numberOfCratesToMove; k += 1) {
       const crate = stacks[stackFrom - 1].pop();
       if (crate) stacks[stackTo - 1].push(crate);
     }
@@ -56,12 +58,12 @@ const taskB = (inputData: string[]): string => {
   const stacks = getStacks(inputData);
   const stackCommands = getStackCommands(inputData);
 
-  stackCommands.forEach(([numberOfCrates, stackFrom, stackTo]) => {
+  stackCommands.forEach(([numberOfCratesToMove, stackFrom, stackTo]) => {
     const cratesBatch: string[] = [];
-    for (let k = 0; k < numberOfCrates; k += 1) {
+    for (let k = 0; k < numberOfCratesToMove; k += 1) {
       cratesBatch.push(stacks[stackFrom - 1].pop() as string);
     }
-    for (let k = 0; k < numberOfCrates; k += 1) {
+    for (let k = 0; k < numberOfCratesToMove; k += 1) {
       stacks[stackTo - 1].push(cratesBatch.pop() as string);
     }
   });
