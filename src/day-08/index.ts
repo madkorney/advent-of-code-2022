@@ -12,12 +12,14 @@ const transformInputData = (inputData: string[]) => {
 
 const transpose = (data: number[][]) => {
   const transposedData: number[][] = [];
+
   for (let k = 0; k < data[0].length; k += 1) {
     transposedData.push([]);
     for (let i = 0; i < data.length; i += 1) {
       transposedData[k].push(data[i][k]);
     }
   }
+
   return transposedData;
 };
 
@@ -32,14 +34,23 @@ const taskA = (inputData: string[]): number => {
   for (let i = 1; i < rowsNumber - 1; i += 1) {
     for (let k = 1; k < columnsNumber - 1; k += 1) {
       const isNotVisible: boolean =
-        horizontalLines[i].slice(0, k).filter((heigth) => heigth >= horizontalLines[i][k]).length >
-          0 &&
+        horizontalLines[i]
+          .slice(0, k)
+          .filter((heigth) => heigth >= horizontalLines[i][k])
+          .length > 0 &&
         horizontalLines[i]
           .slice(k + 1, columnsNumber)
-          .filter((heigth) => heigth >= horizontalLines[i][k]).length > 0 &&
-        verticalLines[k].slice(0, i).filter((heigth) => heigth >= verticalLines[k][i]).length > 0 &&
-        verticalLines[k].slice(i + 1, rowsNumber).filter((heigth) => heigth >= verticalLines[k][i])
+          .filter((heigth) => heigth >= horizontalLines[i][k])
+          .length > 0 &&
+        verticalLines[k]
+          .slice(0, i)
+          .filter((heigth) => heigth >= verticalLines[k][i])
+          .length > 0 &&
+        verticalLines[k]
+          .slice(i + 1, rowsNumber)
+          .filter((heigth) => heigth >= verticalLines[k][i])
           .length > 0;
+
       if (!isNotVisible) visibleTreesNumber += 1;
     }
   }
