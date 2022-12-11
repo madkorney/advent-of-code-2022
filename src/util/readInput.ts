@@ -3,7 +3,10 @@ import path from 'path';
 import * as url from 'url';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
-export const getInputFilePathForDayNumber = (dayNumber: number, inputType: 'input' | 'test') => {
+export const getInputFilePathForDayNumber = (
+  dayNumber: number,
+  inputType: 'input' | 'test' | 'test-1'
+) => {
   const inputFileName = `${inputType}.txt`;
   const dayFolderName = `day-${dayNumber.toString(10).padStart(2, '0')}`;
   const fullInputFilePath = path.join(__dirname.slice(0, -5), dayFolderName, inputFileName);
@@ -29,6 +32,12 @@ export const getInputDataForDay = (dayNumber: number) => {
 
 export const getTestDataForDay = (dayNumber: number) => {
   const pathToFile = getInputFilePathForDayNumber(dayNumber, 'test');
+  const data = readInput(pathToFile);
+  return data;
+};
+
+export const getTestBDataForDay = (dayNumber: number) => {
+  const pathToFile = getInputFilePathForDayNumber(dayNumber, 'test-1');
   const data = readInput(pathToFile);
   return data;
 };
